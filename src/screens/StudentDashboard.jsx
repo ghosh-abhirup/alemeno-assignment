@@ -1,33 +1,27 @@
-import { faPerson, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faPerson, faUser, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../components/ui/Card";
-
-const user = {
-  firstName: "Emily",
-  lastName: "Smith",
-  dob: "2000-09-23",
-  schoolName: "XYZ High School",
-  phoneNumber: "987-654-3210",
-  email: "emily.smith@example.com",
-  photo: "your.photo.link",
-  coursesRegistered: [1, 3],
-  address: {
-    street: "123 Elm Street",
-    city: "Springfield",
-    state: "IL",
-    zipcode: "62701",
-    country: "USA",
-  },
-};
+import { updateRegisteredCourse } from "../store/coursesSlice";
 
 const StudentDashboard = () => {
   const allCourses = useSelector((state) => state.courseSlice.courses);
+  const user = useSelector((state) => state.courseSlice.user);
 
-  const registeredCourse = allCourses.filter((course) =>
-    user.coursesRegistered.includes(course.id)
+  const dispatch = useDispatch();
+
+  const registeredCourse = allCourses?.filter((course) =>
+    user?.coursesRegistered.includes(course.id)
   );
+
+  const completeCourseHandler = (id) => {
+    const newRegisteredArr = user.coursesRegistered.filter(
+      (regId) => regId != id
+    );
+
+    dispatch(updateRegisteredCourse(newRegisteredArr));
+  };
 
   return (
     <div className="w-full h-full flex flex-col items-center">
@@ -80,7 +74,19 @@ const StudentDashboard = () => {
           <>
             <div className="gridLayout">
               {registeredCourse?.map((course, index) => (
-                <Card data={course} key={course.id} />
+                <div className="relative w-fit" key={course.id}>
+                  <Card data={course} />
+                  <div
+                    className="cancelBtn"
+                    onClick={() => completeCourseHandler(course.id)}
+                  >
+                    <FontAwesomeIcon
+                      icon={faXmark}
+                      size="md"
+                      className="text-black "
+                    />
+                  </div>
+                </div>
               ))}
             </div>
           </>
