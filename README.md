@@ -1,8 +1,11 @@
-# React + Vite
+# Alemeno assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This website consists of a student dashboard where one can search for new courses available in the platform and can see details of the courses. Also, a student can complete one of his/her registered courses. Courses will be fetched from a mock Postman API.
 
-Currently, two official plugins are available:
+> Stack: `React` `tailwindCSS` `Redux` `Headless UI` `Postman Mock API`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Pages
+
+- **Student Dashboard:** shows the student information and his/her registered courses
+- **All courses:** shows all the courses in a grid view
+- **Course detail:** shows all information of the selected course
